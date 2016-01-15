@@ -1,3 +1,6 @@
+<!--php,html은 따로 해서 만들어야만 깨끗하다 -->
+
+
 <?php
 header("Content-Type: text/html; charset=UTF-8");
 
