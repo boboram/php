@@ -1,8 +1,11 @@
+<!--postResult -->
 <?php
 header("Content-Type: text/html; charset=UTF-8");
 session_start();
 $name = $_POST['name'];
 $pw = $_POST['pw'];
+
+include('db.php');
 //$mon = $_POST['mon'];
 //$day = $_POST['day'];
 //$age = 2016-$year+1;
@@ -18,6 +21,32 @@ $pw = $_POST['pw'];
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <?php
+
+//디비연결
+$link = mysql_connect($db['host'], $db['user'], $db['pw']);
+if (!$link) {
+    die('Could not connect: ' . mysql_error());
+}
+//사용할 디비 선택
+mysql_select_db($db['db']);
+
+//SQL문 작성
+$sql = "select * from members where id='".$name."' and pwd=password('".$pw."')";
+echo $sql; //
+
+$result = mysql_query($sql);
+$users = mysql_fetch_assoc($result);
+echo "<pre>";
+print_r($users);
+echo "</pre>";
+
+
+exit(); //
+
+//디비 실행
+
+//디비 연결 해
+mysql_close($link);
 
 if( $name== "boram" && $pw=="boboram"){
   $_SESSION['isLogin']=1;
